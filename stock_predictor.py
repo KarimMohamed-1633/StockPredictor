@@ -25,53 +25,60 @@ start = end - timedelta(days=365)
 company_data = {}
 company_data[stock_symbol] = yf.download(stock_symbol, start, end)
 
-print(company_data)
 
-
+#print(company_data)
 
 # ----------------------------------------------- Plotting the stock closing and volume traded ------------------------------------
 
 
+plt.figure(figsize=(12, 6))
 
 
+# Plotting the closing price
+plt.plot(company_data[stock_symbol].index, company_data[stock_symbol]['Close'], label='Close Price', color='black')
+plt.title('Closing Price of ' + stock_symbol)
+plt.xlabel('Date')
+plt.ylabel('Price')
+plt.legend()
+plt.ylim(100, 300)
+plt.tight_layout()
+plt.show()
 
+plt.figure(figsize=(12, 6))
 
-
-
-
-
+# Plotting the volume traded
+plt.plot(company_data[stock_symbol].index, company_data[stock_symbol]['Volume'], label='Volume Traded', color='blue')
+plt.title('Volume Traded of ' + stock_symbol)
+plt.xlabel('Date')
+plt.ylabel('Volume')
+plt.legend()
+plt.tight_layout()
+plt.show()
 
 #--------------------------------------- Moving Average Predicting Method ---------------------------------------------------------
 
-def calculate_sma(stock_prices, window_size):
-    sma_values = []
-    for i in range(len(stock_prices) - window_size + 1):
-        window_sum = sum(stock_prices[i:i+window_size])
-        sma = window_sum / window_size 
-        sma_values.append(sma)
-    return sma_values
+# Define the list of moving average days
+ma_days = [10, 20, 50]
 
+# Iterate over each moving average day
+for ma in ma_days:
+    # Iterate over each company in company_data
+    for company_name, company_df in company_data.items():
+        # Calculate moving average for 'Adj Close' column and store it in a new column
+        column_name = f'MA - {ma} days'
+        company_df[column_name] = company_df['Close'].rolling(window=ma).mean()
 
-#Extract the closing prices 
-#stock_prices = stockData[("Close")]
+# Select the stock data for the specified stock symbol
+stock_data = company_data[stock_symbol]
 
-#Train and test ratios 
-#test_ratio = 0.2
-#train_ratio = 1 - test_ratio
+# Plot the 'Adj Close' prices and moving averages for 10, 20, and 50 days
+stock_data[['Close', 'MA - 10 days', 'MA - 20 days', 'MA - 50 days']].plot(figsize=(16, 6))
 
+# Set the title of the plot
+plt.title(f'{stock_symbol} Stock Analysis')
 
-#divide our historical stock price data into two parts: 
-# one part for teaching our prediction model (training), 
-# and the other part for testing how good our model is at making predictions (testing).
-#train_size = int(train_ratio * len(stock_prices))
-#test_size = int(test_ratio * len(stock_prices))
+# Adjust layout to prevent overlapping
+plt.tight_layout()
 
-
-#print(f"train_size: {train_size}")
-#print(f"test_size: {test_size}")
-
-#Testing gituhb commit 
-#test 2
-
-def print_HeLOO():
-    print("Hello")
+# Show the plot
+plt.show()
