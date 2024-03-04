@@ -49,7 +49,7 @@ def calculate_sma(stock_prices, window_size):
         window_sum = sum(stock_prices[i:i+window_size])
         sma = window_sum / window_size 
         sma_values.append(sma)
-    return sma_values 
+    return sma_values
 
 
 #Extract the closing prices 
@@ -71,3 +71,7 @@ def calculate_sma(stock_prices, window_size):
 #print(f"test_size: {test_size}")
 
 #Testing gituhb commit 
+#test 2
+
+def print_HeLOO():
+    print("Hello")
