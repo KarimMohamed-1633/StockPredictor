@@ -16,6 +16,9 @@ import sys
 # ----------------------------------------------- Extracting Company Data -------------------------------------------------------------
 
 stock_symbol = input('Please Enter Stock Symbol: \n')
+if not yf.Ticker(stock_symbol).info:
+    print("Stock symbol is not valid.")
+    sys.exit()
 
 
 #Setting the dates of data 
@@ -220,8 +223,9 @@ plt.figure(figsize=(16, 6))
 plt.title('Model')
 plt.xlabel('Date', fontsize=18)
 plt.ylabel('Close Price USD ($)', fontsize=18)
-plt.plot(train['Close'])
-plt.plot(valid[['Close', 'Predictions']])
+plt.title(f'{stock_symbol}')
+plt.plot(train['Close'], linewidth = 2)
+plt.plot(valid[['Close', 'Predictions']], linewidth=2)
 plt.legend(['Train', 'Val', 'Predictions'], loc='lower right')
 plt.show()
 
