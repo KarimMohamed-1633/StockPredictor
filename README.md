@@ -1,4 +1,4 @@
-#Stock Predictor AI
+# Stock Predictor AI
 
 The Stock Price Prediction and Analysis project leverages Python to analyze historical stock data and forecast future stock prices. Core concepts of the project include fetching historical data from Yahoo Finance, performing technical analysis such as calculating Simple Moving Averages (SMA) and daily returns, and utilizing Long Short-Term Memory (LSTM) neural networks for predictive modeling. Upon execution, the program prompts the user to input a stock symbol, retrieves relevant data, and generates visualizations depicting stock performance over time, including closing prices, volume traded, and daily returns. Additionally, the program trains an LSTM model to make predictions on future stock prices based on historical trends. Overall, this project provides a comprehensive toolset for analyzing stock market data and gaining insights into potential future trends.
 
